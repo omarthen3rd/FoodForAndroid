@@ -2,17 +2,21 @@ package com.omarabbasi.food
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.ListView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class CategoriesActivity : AppCompatActivity() {
 
+    private lateinit var listView: ListView
+    val context = this
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        listView = findViewById(R.id.categories_list)
         getCategories()
 
     }
@@ -29,7 +33,11 @@ class CategoriesActivity : AppCompatActivity() {
 
                 override fun onResponse(call: Call<AllCategoriesResponse>, response: Response<AllCategoriesResponse>) {
                     if (response.isSuccessful) {
-                        Log.d("MainActivity 1", response.body()?.toString())
+                        val categoriesList = response.body() as AllCategoriesResponse
+                        val sortedCategories = categoriesList.categories.sortedBy { it.strCategory }
+                        val listAdapter = CategoryAdapter(context, sortedCategories)
+                        listView.adapter = listAdapter
+
                     }
                 }
 
