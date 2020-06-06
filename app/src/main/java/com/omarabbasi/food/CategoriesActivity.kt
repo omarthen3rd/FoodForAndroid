@@ -35,25 +35,6 @@ class CategoriesActivity : AppCompatActivity() {
 
             })
 
-//        GlobalScope.launch(Dispatchers.Main) {
-//            var categoriesRequest = mealService.getCategories()
-//            try {
-//                val resp = categoriesRequest.await()
-//                if (resp.isSuccessful) {
-//                    val categoriesResp = resp.body()
-//                    var allCategories = categoriesResp?.categories
-//                    if (allCategories != null) {
-//                        categories = allCategories
-//                    }
-//                } else {
-//                    Log.d("MainActivity Resp Error", resp.errorBody().toString())
-//                }
-//            } catch (e: Exception) {
-//                Log.d("Error1234", e.toString())
-//            }
-//        }
-
-
     }
 
 
