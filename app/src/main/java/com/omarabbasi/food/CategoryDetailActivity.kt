@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,8 +39,8 @@ class CategoryDetailActivity: AppCompatActivity() {
                         val recipesList = response.body() as CategoryRecipes
                         val sortedRecipes = recipesList.meals.sortedBy { it.strMeal }
                         val listAdapter = RecipeListAdapter(sortedRecipes)
+                        listView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                         listView.adapter = listAdapter
-                        listView.layoutManager = LinearLayoutManager(context)
                     }
                 }
 
