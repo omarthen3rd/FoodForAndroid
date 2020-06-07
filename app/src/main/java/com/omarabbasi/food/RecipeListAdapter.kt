@@ -1,6 +1,5 @@
 package com.omarabbasi.food
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,21 +12,21 @@ import com.squareup.picasso.Picasso
 class RecipeListAdapter(private val dataSource: List<BasicRecipe>)
     : RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeListAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
 
-        val recipeItemView = inflater.inflate(R.layout.category_detail_item, parent, false)
+        val recipeItemView = inflater.inflate(R.layout.recipe_list_item, parent, false)
 
         return ViewHolder(recipeItemView)
     }
 
-    override fun onBindViewHolder(holder: RecipeListAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        var basicRecipe = dataSource.get(position)
+        var basicRecipe = dataSource[position]
 
         val name = holder.nameView
-        name.setText(basicRecipe.strMeal)
+        name.text = basicRecipe.strMeal
 
         val image = holder.imageView
         Picasso.get().load(basicRecipe.strMealThumb).into(image)

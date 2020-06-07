@@ -13,8 +13,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".RecipeDetail"></activity>
         <activity android:name=".CategoryDetailItem" />
-        <activity android:name=".CategoryDetailActivity" />
-        <activity android:name=".CategoriesActivity">
+        <activity android:name=".RecipeList" />
+        <activity android:name=".CategoriesList">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

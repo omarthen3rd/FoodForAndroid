@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CategoryDetailActivity">
+    tools:context=".RecipeList">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recipes_list_view"

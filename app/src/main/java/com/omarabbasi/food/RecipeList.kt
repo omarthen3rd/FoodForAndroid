@@ -2,21 +2,20 @@ package com.omarabbasi.food
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CategoryDetailActivity: AppCompatActivity() {
+class RecipeList: AppCompatActivity() {
 
     private lateinit var listView: RecyclerView
     val context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.category_detail)
+        setContentView(R.layout.recipe_list)
 
         listView = findViewById(R.id.recipes_list_view)
         val filter = intent.getStringExtra("NAME")

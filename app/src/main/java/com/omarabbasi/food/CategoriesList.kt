@@ -4,13 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ListView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CategoriesActivity : AppCompatActivity() {
+class CategoriesList : AppCompatActivity() {
 
-    private lateinit var listView: ListView
+    private lateinit var listView: RecyclerView
     private lateinit var categories: List<Category>
     val context = this
 
@@ -21,19 +23,29 @@ class CategoriesActivity : AppCompatActivity() {
         listView = findViewById(R.id.categories_list_view)
         getCategories()
 
-        listView.setOnItemClickListener { _, _, position, _ ->
-            // 1
-            val selectedCategory = categories[position]
+//        listView.setOnItemClickListener { _, _, position, _ ->
+//            // 1
+//            val selectedCategory = categories[position]
+//
+//            // 2
+//            val detailIntent = Intent(this, RecipeList::class.java).apply {
+//                putExtra("NAME", selectedCategory.strCategory)
+//            }
+//
+//            // 3
+//            startActivity(detailIntent)
+//        }
 
-            // 2
-            val detailIntent = Intent(this, CategoryDetailActivity::class.java).apply {
-                putExtra("NAME", selectedCategory.strCategory)
-            }
 
-            // 3
-            startActivity(detailIntent)
+    }
+
+    private fun onClickForCategory(category: Category) {
+
+        val detailIntent = Intent(this, RecipeList::class.java).apply {
+            putExtra("NAME", category.strCategory)
         }
 
+        startActivity(detailIntent)
 
     }
 
@@ -52,7 +64,10 @@ class CategoriesActivity : AppCompatActivity() {
                         val categoriesList = response.body() as AllCategoriesResponse
                         val sortedCategories = categoriesList.categories.sortedBy { it.strCategory }
                         categories = sortedCategories
-                        val listAdapter = CategoryAdapter(context, sortedCategories)
+                        val listAdapter = CategoryListAdapter(sortedCategories) {
+                                category: Category -> onClickForCategory(category)
+                        }
+                        listView.layoutManager = LinearLayoutManager(context)
                         listView.adapter = listAdapter
 
                     }
