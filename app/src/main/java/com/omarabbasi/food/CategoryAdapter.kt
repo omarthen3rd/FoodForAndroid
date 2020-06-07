@@ -1,17 +1,13 @@
 package com.omarabbasi.food
 
 import android.content.Context
-import android.content.res.AssetManager
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import com.squareup.picasso.Picasso
-import java.io.File
 
 class CategoryAdapter(private val context: Context,
                       private val dataSource: List<Category>) : BaseAdapter() {
@@ -21,7 +17,7 @@ class CategoryAdapter(private val context: Context,
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
-        val rowView = inflater.inflate(R.layout.category_list, parent, false)
+        val rowView = inflater.inflate(R.layout.category_list_item, parent, false)
         val category = getItem(position) as Category
 
         val titleView = rowView.findViewById(R.id.category_title) as TextView
