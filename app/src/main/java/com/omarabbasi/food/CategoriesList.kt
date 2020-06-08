@@ -3,7 +3,9 @@ package com.omarabbasi.food
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.ListView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
@@ -22,20 +24,6 @@ class CategoriesList : AppCompatActivity() {
 
         listView = findViewById(R.id.categories_list_view)
         getCategories()
-
-//        listView.setOnItemClickListener { _, _, position, _ ->
-//            // 1
-//            val selectedCategory = categories[position]
-//
-//            // 2
-//            val detailIntent = Intent(this, RecipeList::class.java).apply {
-//                putExtra("NAME", selectedCategory.strCategory)
-//            }
-//
-//            // 3
-//            startActivity(detailIntent)
-//        }
-
 
     }
 

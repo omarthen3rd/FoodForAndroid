@@ -20,7 +20,7 @@ data class Category(
 )
 
 
-// Category
+// BasicRecipe
 data class CategoryRecipes(
     val meals: List<BasicRecipe>
 )
@@ -29,6 +29,21 @@ data class BasicRecipe(
     val idMeal: String,
     val strMeal: String,
     val strMealThumb: String
+)
+
+data class FullRecipes(
+    val meals: List<FullRecipe>
+)
+
+data class FullRecipe (
+    val idMeal: String,
+    val strMeal: String,
+    val strCategory: String,
+    val strMealThumb: String,
+    val strArea: String,
+    val strTags: String,
+    val strYoutube: String,
+    val strSource: String
 )
 
 // endpoints here
@@ -41,7 +56,7 @@ interface MealsEndpoint {
     @GET("filter.php")
     fun getRecipesByFilter(@Query("c") filter: String): Call<CategoryRecipes>
 
-    // TODO:
-    // other endpoints (Query, Details...)
+    @GET("lookup.php")
+    fun getRecipeById(@Query("i") id: String): Call<FullRecipes>
 
 }

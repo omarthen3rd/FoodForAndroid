@@ -1,5 +1,6 @@
 package com.omarabbasi.food
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
@@ -37,13 +38,23 @@ class RecipeList: AppCompatActivity() {
                     if (response.isSuccessful) {
                         val recipesList = response.body() as CategoryRecipes
                         val sortedRecipes = recipesList.meals.sortedBy { it.strMeal }
-                        val listAdapter = RecipeListAdapter(sortedRecipes)
+                        val listAdapter = RecipeListAdapter(sortedRecipes) {
+                                recipe: BasicRecipe -> onClickRecipe(recipe)
+                        }
                         listView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                         listView.adapter = listAdapter
                     }
                 }
 
             })
-
     }
+
+    private fun onClickRecipe(recipe: BasicRecipe) {
+        val detailIntent = Intent(this, RecipeDetail::class.java).apply {
+            putExtra("ID", recipe.idMeal)
+        }
+
+        startActivity(detailIntent)
+    }
+
 }

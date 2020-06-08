@@ -30,6 +30,8 @@ class CategoryListAdapter(private val dataSource: List<Category>,
 
         var category = dataSource[position]
 
+        holder.bind(category, clickListener)
+
         val name = holder.nameView
         name.text = category.strCategory
 
@@ -38,8 +40,6 @@ class CategoryListAdapter(private val dataSource: List<Category>,
         val imageFile = assets?.open(imageName)
         val imageDrawable = Drawable.createFromStream(imageFile, null)
         imageView.setImageDrawable(imageDrawable)
-
-        holder.bind(category, clickListener)
 
     }
 

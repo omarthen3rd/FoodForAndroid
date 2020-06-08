@@ -9,7 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
-class RecipeListAdapter(private val dataSource: List<BasicRecipe>)
+class RecipeListAdapter(private val dataSource: List<BasicRecipe>,
+                        private val clickListener: (BasicRecipe) -> Unit)
     : RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,6 +26,8 @@ class RecipeListAdapter(private val dataSource: List<BasicRecipe>)
 
         var basicRecipe = dataSource[position]
 
+        holder.bind(basicRecipe, clickListener)
+
         val name = holder.nameView
         name.text = basicRecipe.strMeal
 
@@ -35,13 +38,18 @@ class RecipeListAdapter(private val dataSource: List<BasicRecipe>)
 
     override fun getItemCount(): Int = dataSource.size
 
-    class ViewHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
+    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
         val imageView: ImageView = v.findViewById(R.id.recipe_image) as ImageView
         val nameView: TextView = v.findViewById(R.id.recipe_name) as TextView
 
-        override fun onClick(v: View) {
-            Log.d("RecyclerView", "CLICK!")
+        fun bind(recipe: BasicRecipe, clickListener: (BasicRecipe) -> Unit) {
+
+            // todo
+            itemView.setOnClickListener {
+                clickListener(recipe)
+            }
+
         }
 
     }
