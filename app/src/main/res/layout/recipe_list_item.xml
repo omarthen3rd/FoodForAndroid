@@ -4,48 +4,44 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     card_view:cardUseCompatPadding="true"
     card_view:cardCornerRadius="8dp"
-    android:layout_marginBottom="8dp">
+    android:layout_margin="5dp" >
 
-    <RelativeLayout
-        android:orientation="vertical"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/recipe_image_holder"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/recipe_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:scaleType="centerInside"
-                card_view:srcCompat="@mipmap/ic_launcher" />
-
-        </RelativeLayout>
+        <ImageView
+            android:id="@+id/recipe_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerInside"
+            card_view:layout_constraintDimensionRatio="H, 1:1"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/recipe_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_below="@+id/recipe_image_holder"
-            android:fontFamily="sans-serif"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/nunito_bold"
             android:gravity="center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/recipe_image"
             tools:text="Name" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

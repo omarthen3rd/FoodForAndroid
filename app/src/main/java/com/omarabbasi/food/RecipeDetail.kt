@@ -17,6 +17,7 @@ class RecipeDetail : AppCompatActivity() {
     var recipeImage: ImageView? = null
     var recipeName: TextView? = null
     var recipeTags: TextView? = null
+    var recipeDiections: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +27,7 @@ class RecipeDetail : AppCompatActivity() {
         recipeImage = findViewById(R.id.recipe_detail_image)
         recipeName = findViewById(R.id.recipe_detail_name)
         recipeTags = findViewById(R.id.recipe_detail_tags)
+        recipeDiections = findViewById(R.id.recipe_detail_directions)
 
         val id = intent.getStringExtra("ID")
         getRecipeById(id)
@@ -49,9 +51,12 @@ class RecipeDetail : AppCompatActivity() {
 
                         // set in view
                         Picasso.get().load(recipe.strMealThumb).into(recipeImage)
-                        recipeName?.text = recipe.strMeal
-                        recipeTags?.text = (recipe.strArea +
+                        recipeName?.text = recipe.strMeal.capitalize()
+                        recipeTags?.text = (recipe.strArea + " · " +
                                 recipe.strTags.replace(",", " · "))
+                        recipeDiections?.text = recipe.strInstructions
+
+                        // sort and set ingredients
 
                     }
                 }

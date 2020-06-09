@@ -29,7 +29,7 @@ class RecipeListAdapter(private val dataSource: List<BasicRecipe>,
         holder.bind(basicRecipe, clickListener)
 
         val name = holder.nameView
-        name.text = basicRecipe.strMeal
+        name.text = basicRecipe.strMeal.capitalize()
 
         val image = holder.imageView
         Picasso.get().load(basicRecipe.strMealThumb).into(image)
