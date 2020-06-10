@@ -1,5 +1,6 @@
 package com.omarabbasi.food
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -39,15 +40,18 @@ class RecipeDetail : AppCompatActivity() {
 
     private fun setRecipeInUI(recipe: FullRecipe) {
 
+        var smallHeaderString = recipe.category
+        if (recipe.tags.isNotEmpty()) smallHeaderString += " · ${recipe.tags.joinToString(" · ")}"
+
         Picasso.get().load(recipe.imageURL).into(recipeImage)
-        recipeName?.text = recipe.name
-        recipeTags?.text = recipe.tags.joinToString(" · ")
-        recipeDirections?.text = recipe.instructions
+        recipeName?.text = recipe.name.split(' ').joinToString(" ") { it.capitalize() }
+        recipeTags?.text = smallHeaderString
+        recipeDirections?.text = recipe.instructions.replace("\r", System.lineSeparator())
 
         // set ingredients
         val sortedIngredients = recipe.ingredients.sortedBy { it.name }
         val listAdapter = IngredientListAdapter(sortedIngredients)
-        ingredientListView.layoutManager = LinearLayoutManager(this)
+        ingredientListView.layoutManager = NoScrollLinearLayout(this)
         ingredientListView.adapter = listAdapter
 
     }
@@ -73,12 +77,13 @@ class RecipeDetail : AppCompatActivity() {
                         val id = recipeJSON["idMeal"].asString
                         val imgUrl = recipeJSON["strMealThumb"].asString
                         val recipeName = recipeJSON["strMeal"].asString
-                        val recipeTags = recipeJSON["strTags"].asString.split(",")
                         val recipeArea = recipeJSON["strArea"].asString
                         val recipeCategory = recipeJSON["strCategory"].asString
                         val recipeDirections = recipeJSON["strInstructions"].asString
-                        val websiteString = recipeJSON["strSource"].asString
-                        val videoString = recipeJSON["strYoutube"].asString
+                        recipeDirections.replace("\r", "\n")
+
+                        val websiteString = recipeJSON["strSource"]
+                        val videoString = recipeJSON["strYoutube"]
 
                         val ingredients = arrayListOf<Ingredient>()
 
@@ -93,8 +98,22 @@ class RecipeDetail : AppCompatActivity() {
                             i++
                         }
 
+                        // check tags
+                        var tags = ArrayList<String>()
+                        var jsonTags = recipeJSON["strTags"]
+                        if (!jsonTags.isJsonNull) {
+                            tags = jsonTags.asString.split(",") as ArrayList<String>
+                        }
+
+                        // check urls
+                        var website = ""
+                        if (!websiteString.isJsonNull) website = websiteString.asString
+
+                        var video = ""
+                        if (!videoString.isJsonNull) video = videoString.asString
+
                         val recipe = FullRecipe(id, recipeName, recipeCategory, imgUrl, recipeArea,
-                            recipeTags, videoString, websiteString, recipeDirections, ingredients)
+                            tags, video, website, recipeDirections, ingredients)
 
                         setRecipeInUI(recipe)
 
@@ -104,4 +123,11 @@ class RecipeDetail : AppCompatActivity() {
             })
     }
 
+}
+
+class NoScrollLinearLayout(context: Context?) : LinearLayoutManager(context) {
+
+    override fun canScrollVertically(): Boolean {
+        return false
+    }
 }

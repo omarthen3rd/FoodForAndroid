@@ -1,6 +1,5 @@
 package com.omarabbasi.food
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +28,7 @@ class RecipeListAdapter(private val dataSource: List<BasicRecipe>,
         holder.bind(basicRecipe, clickListener)
 
         val name = holder.nameView
-        name.text = basicRecipe.strMeal.capitalize()
+        name.text = basicRecipe.strMeal.split(' ').joinToString(" ") { it.capitalize() }
 
         val image = holder.imageView
         Picasso.get().load(basicRecipe.strMealThumb).into(image)
