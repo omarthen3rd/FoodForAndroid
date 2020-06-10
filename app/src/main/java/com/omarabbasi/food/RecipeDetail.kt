@@ -78,6 +78,7 @@ class RecipeDetail : AppCompatActivity() {
                         val imgUrl = recipeJSON["strMealThumb"].asString
                         val recipeName = recipeJSON["strMeal"].asString
                         val recipeArea = recipeJSON["strArea"].asString
+                        val recipeTags = recipeJSON["strTags"]
                         val recipeCategory = recipeJSON["strCategory"].asString
                         val recipeDirections = recipeJSON["strInstructions"].asString
                         recipeDirections.replace("\r", "\n")
@@ -99,10 +100,9 @@ class RecipeDetail : AppCompatActivity() {
                         }
 
                         // check tags
-                        var tags = ArrayList<String>()
-                        var jsonTags = recipeJSON["strTags"]
-                        if (!jsonTags.isJsonNull) {
-                            tags = jsonTags.asString.split(",") as ArrayList<String>
+                        var tags = arrayOf<String>()
+                        if (!recipeTags.isJsonNull) {
+                            tags = recipeTags.asString.split(",").toTypedArray()
                         }
 
                         // check urls

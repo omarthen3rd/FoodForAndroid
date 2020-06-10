@@ -42,7 +42,7 @@ data class FullRecipe (
     val category: String,
     val imageURL: String,
     val area: String,
-    val tags: List<String>,
+    val tags: Array<String>,
     val youtube: String,
     val website: String,
     val instructions: String,
